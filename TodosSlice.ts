@@ -72,3 +72,63 @@ export const toggleTodo = createAsyncThunk(
     return todo;
   }
 );
+const todosSlice = createSlice({
+  name: "todos",
+  initialState,
+  reducers: {
+    todoToggled(state, action: PayloadAction<number>) {
+      const todoId = action.payload;
+      const todo = state.entities[todoId];
+      if (todo?.completed) todo.completed = !todo.completed;
+    },
+    todoColorSelected: {
+      reducer(state, action: PayloadAction<{ todoId: number; color: string }>) {
+        const { todoId, color } = action.payload;
+        const todo = state.entities[todoId];
+        if (todo?.color) {
+          todo.color = color;
+        }
+      },
+      prepare(todoId: number, color: string) {
+        return {
+          payload: { todoId, color },
+        };
+      },
+    },
+    allTodosCompleted(state) {
+      Object.values(state.entities).forEach((todo) => {
+        todo!!.completed = true;
+           });
+    },
+    completedTodosCleared(state) {
+      const completedTodoIds = Object.values(state.entities)
+        .filter((todo) => todo?.completed)
+        .map((todo) => (todo ? todo.id : -1));
+
+      if (completedTodoIds) todosAdapter.removeMany(state, completedTodoIds);
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTodos.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        todosAdapter.setAll(state, action.payload);
+        state.status = "idle";
+      })
+      .addCase(saveNewTodo.fulfilled, (state, action) => {
+        const todo = action.payload;
+        todosAdapter.addOne(state, todo);
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        todosAdapter.removeOne(state, action.payload);
+      })
+      .addCase(changeColor.fulfilled, (state, action) => {
+        todosAdapter.setOne(state, action.payload);
+      })
+      .addCase(toggleTodo.fulfilled, (state, action) => {
+        todosAdapter.setOne(state, action.payload);
+      });
+  },
+});
