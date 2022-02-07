@@ -132,3 +132,41 @@ const todosSlice = createSlice({
       });
   },
 });
+export const {
+  allTodosCompleted,
+  todoToggled,
+  completedTodosCleared,
+  todoColorSelected,
+  // todoDeleted,
+} = todosSlice.actions;
+
+export default todosSlice.reducer;
+
+export const { selectAll: selectTodos, selectById: selectTodoById } =
+  todosAdapter.getSelectors<RootState>((s) => s.todos);
+
+export const selectTodoIds = createSelector(selectTodos, (todos) =>
+  todos.map((todo) => todo.id)
+);
+
+export const selectFilteredTodo = createSelector(
+  selectTodos,
+  (state) => state.filters,
+  (todos, filters) => {
+    const { status, colors } = filters;
+    const showAllCompletions = status === StatusFilters.ALL;
+    if (showAllCompletions && colors.length === 0) {
+      return todos;
+    }
+
+    const completedStatus = status === StatusFilters.COMPLETED;
+    return todos.filter((todo) => {
+      const statusMatches =
+        showAllCompletions || todo.completed === completedStatus;
+      //
+      const colorMatches =
+        colors.length === 0 || colors.includes(todo?.color || "");
+      return statusMatches && colorMatches;
+    });
+  }
+);
