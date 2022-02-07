@@ -47,3 +47,11 @@ export const deleteTodo = createAsyncThunk(
     return id;
   }
 );
+export const changeColor = createAsyncThunk(
+  "todos/changeColor",
+  async ({ id, color }: { id: number; color: string }) => {
+    const todo = await todoService.getTodo(id);
+    const newTodo: Todo = {
+      ...todo,
+      color,
+    };
