@@ -40,3 +40,10 @@ export const saveNewTodo = createAsyncThunk(
     return todo;
   }
 );
+export const deleteTodo = createAsyncThunk(
+  "todos/deleteTodo",
+  async (id: number) => {
+    await todoService.deleteTodo(id);
+    return id;
+  }
+);
