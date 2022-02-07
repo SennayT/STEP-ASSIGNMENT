@@ -33,3 +33,10 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
   console.log(todos);
   return todos;
 });
+export const saveNewTodo = createAsyncThunk(
+  "todos/saveNewTodo",
+  async (text: string) => {
+    const todo = await todoService.addTodoFromText(text);
+    return todo;
+  }
+);
