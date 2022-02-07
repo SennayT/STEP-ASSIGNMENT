@@ -170,3 +170,7 @@ export const selectFilteredTodo = createSelector(
     });
   }
 );
+export const selectFilteredTodoIds = createSelector(
+  selectFilteredTodo,
+  (todos) => todos.map((todo) => todo.id)
+);
