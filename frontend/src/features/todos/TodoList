@@ -14,3 +14,12 @@ const TodoList = () => {
       </div>
     );
   }
+
+const renderedListItems = todoIds.map((todoId) => {
+    return <TodoListItem key={todoId} id={todoId} />;
+  });
+
+  return <ul className="todo-list">{renderedListItems}</ul>;
+};
+
+export default TodoList;
