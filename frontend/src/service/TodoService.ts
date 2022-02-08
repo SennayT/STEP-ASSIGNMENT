@@ -39,7 +39,7 @@ export class TodoRemote implements TodoService{
             text,
             color:' '
           })
-  
+          console.log("inside add todo")
           resolve(data)
         }
         catch (err) {
