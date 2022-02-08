@@ -62,3 +62,17 @@ export const changeColor = createAsyncThunk(
     return await todoService.updateTodo(id, newTodo);
   }
 );
+
+export const toggleTodo = createAsyncThunk(
+  "todos/toggle",
+  async (id: number) => {
+    let todo = await todoService.getTodo(id);
+    todo = {
+      ...todo,
+      completed: !todo.completed,
+    };
+
+    todo = await todoService.updateTodo(id, todo);
+    return todo;
+  }
+);
