@@ -172,3 +172,19 @@ export const selectFilteredTodo = createSelector(
     if (showAllCompletions && colors.length === 0) {
       return todos;
     }
+   const completedStatus = status === StatusFilters.COMPLETED;
+    return todos.filter((todo) => {
+      const statusMatches =
+        showAllCompletions || todo.completed === completedStatus;
+      //
+      const colorMatches =
+        colors.length === 0 || colors.includes(todo?.color || "");
+      return statusMatches && colorMatches;
+    });
+  }
+);
+
+export const selectFilteredTodoIds = createSelector(
+  selectFilteredTodo,
+  (todos) => todos.map((todo) => todo.id)
+);
