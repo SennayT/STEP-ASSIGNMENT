@@ -31,7 +31,14 @@ export class TodoServiceImpl implements TodoService {
     });
   }
   deleteTodo(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+    return new Promise(async (resolve, reject) => {
+      await this.prisma.todo.delete({
+        where: {
+          id,
+        },
+      });
+      resolve();
+    });
   }
   getTodo(id: number): Promise<Todo> {
     return new Promise<Todo>(async (resolve, reject) => {
