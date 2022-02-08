@@ -163,3 +163,12 @@ export const { selectAll: selectTodos, selectById: selectTodoById } =
 export const selectTodoIds = createSelector(selectTodos, (todos) =>
   todos.map((todo) => todo.id)
 );
+export const selectFilteredTodo = createSelector(
+  selectTodos,
+  (state) => state.filters,
+  (todos, filters) => {
+    const { status, colors } = filters;
+    const showAllCompletions = status === StatusFilters.ALL;
+    if (showAllCompletions && colors.length === 0) {
+      return todos;
+    }
