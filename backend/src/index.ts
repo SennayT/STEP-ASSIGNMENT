@@ -50,3 +50,11 @@ app.delete("/api/todos/:id", async (req, res) => {
   await todoService.deleteTodo(id);
   return res.status(200).json({ msg: "success" });
 });
+
+const PORT = 4000;
+
+const server = app.listen(PORT, () =>
+  console.log(`
+🚀 Server ready at: http://localhost:${PORT}
+⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`)
+);
