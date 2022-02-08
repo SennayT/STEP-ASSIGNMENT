@@ -17,12 +17,22 @@ export class TodoServiceImpl implements TodoService {
   constructor() {
     this.prisma = new PrismaClient();
   }
-    updateTodo(id: number, newInfo: any): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    deleteTodo(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
+  updateTodo(id: number, newInfo: Prisma.TodoCreateInput): Promise<Todo> {
+    return new Promise(async (resolve, reject) => {
+      const todo = await this.prisma.todo.update({
+        where: {
+          id,
+        },
+        data: {
+          ...newInfo,
+        },
+      });
+      resolve(todo);
+    });
+  }
+  deleteTodo(id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
   getTodo(id: number): Promise<Todo> {
     return new Promise<Todo>(async (resolve, reject) => {
       const todo = await this.prisma.todo.findUnique({
@@ -62,7 +72,6 @@ export class TodoServiceImpl implements TodoService {
     });
   }
 
-  
   getAllTodos(): Promise<Todo[]> {
     return new Promise<Todo[]>(async (resolve, reject) => {
       const res = await this.prisma.todo.findMany();
