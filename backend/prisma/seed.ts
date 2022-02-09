@@ -1,4 +1,4 @@
- import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -17,6 +17,16 @@ const todos: Prisma.TodoCreateInput[] = [
     text: "Study for STEP exam",
     completed: true,
     color: "blue",
+  },
+  {
+    text: "Finish capstone",
+    completed: false,
+    color: "red",
+  },
+  {
+    text: "Finish research",
+    completed: true,
+    color: "green",
   },
 ];
 
