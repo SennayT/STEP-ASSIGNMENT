@@ -160,6 +160,8 @@ export class TodoLocal implements TodoService {
       if (oldTodo === undefined) {
         reject(`Todo with id ${id} not found`);
         return;
+      } else {
+        console.log("other option");
       }
 
       const index = this.todoList.indexOf(oldTodo);
