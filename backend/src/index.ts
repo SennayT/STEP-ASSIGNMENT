@@ -43,7 +43,6 @@ app.patch("/api/todos", async (req, res) => {
   return res.json(todo);
 });
 
-
 app.put("/api/todos/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { text, completed, color } = req.body;
@@ -61,11 +60,10 @@ app.delete("/api/todos/:id", async (req, res) => {
   return res.status(200).json({ msg: "success" });
 });
 
-const PORT = 4000;
+const PORT = 5000;
 
 const server = app.listen(PORT, () =>
   console.log(`
 🚀 Server ready at: http://localhost:${PORT}
 ⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`)
 );
-
