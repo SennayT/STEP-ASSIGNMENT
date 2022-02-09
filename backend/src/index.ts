@@ -2,6 +2,7 @@ import express from "express";
 import { TodoService, TodoServiceImpl } from "../service/TodoService";
 import cors from "cors";
 const app = express();
+
 app.use(cors());
 
 app.use(express.json());
@@ -64,6 +65,6 @@ const PORT = 5000;
 
 const server = app.listen(PORT, () =>
   console.log(`
-🚀 Server ready at: http://localhost:${PORT}
-⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`)
+🚀 Server ready at: http://localhost:${PORT}`
+
 );
