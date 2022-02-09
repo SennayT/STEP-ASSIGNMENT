@@ -68,7 +68,7 @@ export class TodoRemote implements TodoService {
   }
 
   getTodo(id: number): Promise<Todo> {
-    //return axios.get(`${this.url}/${id}`);
+    return axios.get(`${this.url}/${id}`);
     return new Promise<Todo>(async (resolve, reject) => {
       try {
         const { data } = await axios.get<Todo>(`${this.url}/${id}`);
