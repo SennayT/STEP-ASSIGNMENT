@@ -25,7 +25,7 @@ export class TodoRemote implements TodoService {
       }
     });
 
-    // return Promise.resolve(undefined);
+    return Promise.resolve(undefined);
   }
 
   addTodoFromText(text: string): Promise<Todo> {
