@@ -28,18 +28,6 @@ const todos: Prisma.TodoCreateInput[] = [
     completed: true,
     color: "green",
   },
-
-  {
-    text: "buy shoes",
-    completed: true,
-    color: "red",
-  },
-
-  {
-    text: "finish internsip",
-    completed: true,
-    color: "green",
-  },
 ];
 
 async function main() {
