@@ -33,3 +33,11 @@ app.post("/api/todos", async (req, res) => {
 
   return res.json(todo);
 });
+app.patch("/api/todos", async (req, res) => {
+  const { text, completed, color } = req.body;
+  const todo = await todoService.addTodo({
+    text,
+  });
+
+  return res.json(todo);
+});
